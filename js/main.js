@@ -1,7 +1,7 @@
 let email_registrado = "marco@naa.com"
 let pass_registrado = "1234"
 let bienvenida = document.getElementById("bienvenida"); //CAPTURA DE NODO POR ID
-let seccionProductos = document.getElementById("products"); //CAPTURA DE NODO POR ID 
+let seccionProductos = document.getElementById("products");
 let boton_logIn = document.getElementById("boton-logIn");
 let boton_signUp = document.getElementById("boton-signUp");
 const contenedorJugos = document.getElementById("contenedorJugos");
@@ -98,8 +98,8 @@ function saludo(){ //FUNCIÓN
 
 function signUp(){ //FUNCIÓN
     let nombre = document.getElementById("nombre_usuario").value; //CAPTURA DE NODO POR ID Y VALUE
-    let nuevo_email = document.getElementById("nuevo_email").value; //CAPTURA DE NODO POR ID Y VALUE
-    let nuevo_pass = document.getElementById("nueva_pass").value; //CAPTURA DE NODO POR ID Y VALUE
+    let nuevo_email = document.getElementById("nuevo_email").value; 
+    let nuevo_pass = document.getElementById("nueva_pass").value; 
 
     let nuevo_usuario = new Usuario(nombre, nuevo_email, nuevo_pass);
 
@@ -112,7 +112,7 @@ boton_signUp.addEventListener("click", signUp) //EVENTO
 
 function logIn(){ //FUNCIÓN
     let email = document.getElementById("email_usuario").value; //CAPTURA DE NODO POR ID Y VALUE
-    let pass = document.getElementById("pass_usuario").value; //CAPTURA DE NODO POR ID Y VALUE
+    let pass = document.getElementById("pass_usuario").value; 
 
     
     if(email == email_registrado && pass == pass_registrado){ //CONDICIONAL
