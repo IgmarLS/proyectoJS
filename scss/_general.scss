@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+    padding-top: 70px;
+    background-color: #F0F0F0;  
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+header {
+    z-index: 99999;
+    width: 100%;
+    height: 70px;
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 2px 40px 0px rgba(0, 0, 0, 0.091);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $color-text;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    padding: 0 2rem;
+    h1 {
+        padding-left: 2rem;
+        a {
+            color: #cacaca;
+        }
+    }
+}
+
+nav {
+    ul {
+        display: flex;
+        li {
+            padding: 0 1rem;
+            i {
+                color: #cacaca;
+                &:hover {
+                    color: #F1C40F;
+                }
+            }
+        }
+    }
+
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+    padding-right: 2rem; 
+}
+
+.titulo-bienvenida {
+    text-align: center;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+}
+
+.titulo-error{
+    @extend .titulo-bienvenida;
+    color: red
+}
+
+.products {
+    display: none; //cambiar a flex con JS
+}
+
+.showProducts {
+    display: flex;
+}
+
+.jugos{
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+}
+
+.cart {
+    width: 35%;
+    background-color: white;
+    color: $color-text;
+    padding: 1rem 2rem;
+    margin: 1rem 0;
+    border-radius: 15px;
+}
+
+.product-list {
+    border-bottom: 2px solid $color-text;
+    margin-bottom: 2rem;
+}
+
+.product-total {
+    box-shadow: $shadow;
+    border-radius: 15px;
+    padding: 1rem;
+    color: black;
+
+    .subtotal, .envio, .total {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+    }
+    .total {
+        border-top: 2px solid #000000;
+            span {
+                font-size: 24px;
+                font-weight: 700;
+            }
+    }
+}
+
+footer {
+    height: 140px;
+    background: white;
+    box-shadow: 0px 2px 40px 0px rgba(0, 0, 0, 0.091);
+    margin-top: 3rem;
+}

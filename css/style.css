@@ -1,0 +1,323 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+  padding-top: 70px;
+  background-color: #F0F0F0;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  z-index: 99999;
+  width: 100%;
+  height: 70px;
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0px 2px 40px 0px rgba(0, 0, 0, 0.091);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #cacaca;
+  font-weight: 100;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  padding: 0 2rem;
+}
+
+header h1 {
+  padding-left: 2rem;
+}
+
+header h1 a {
+  color: #cacaca;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav ul li {
+  padding: 0 1rem;
+}
+
+nav ul li i {
+  color: #cacaca;
+}
+
+nav ul li i:hover {
+  color: #F1C40F;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.titulo-bienvenida, .titulo-error {
+  text-align: center;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+}
+
+.titulo-error {
+  color: red;
+}
+
+.products {
+  display: none;
+}
+
+.showProducts {
+  display: flex;
+}
+
+.jugos {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+}
+
+.cart {
+  width: 35%;
+  background-color: white;
+  color: #cacaca;
+  padding: 1rem 2rem;
+  margin: 1rem 0;
+  border-radius: 15px;
+}
+
+.product-list {
+  border-bottom: 2px solid #cacaca;
+  margin-bottom: 2rem;
+}
+
+.product-total {
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 1rem;
+  color: black;
+}
+
+.product-total .subtotal, .product-total .envio, .product-total .total {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.product-total .total {
+  border-top: 2px solid #000000;
+}
+
+.product-total .total span {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+footer {
+  height: 140px;
+  background: white;
+  box-shadow: 0px 2px 40px 0px rgba(0, 0, 0, 0.091);
+  margin-top: 3rem;
+}
+
+.juice-card {
+  width: 250px;
+  height: 400px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 1.5rem 1rem 0;
+}
+
+.juice-card .juice-like {
+  align-self: flex-end;
+  padding: 1rem;
+  border-color: #454545;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.7rem 0;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+.juice-card .juice-like i {
+  font-size: 20px;
+  color: #cacaca;
+}
+
+.juice-card .juice-like i:hover {
+  color: red;
+}
+
+.juice-card img {
+  width: 40%;
+}
+
+.juice-card h3 {
+  text-align: center;
+  color: #cacaca;
+  font-size: 1rem;
+  padding: 1rem 0;
+}
+
+.juice-card .juice-price span {
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+}
+
+.juice-card .juice-add {
+  margin-top: 1rem;
+}
+
+.juice-card .juice-add .btn-qty {
+  padding: .2rem;
+}
+
+.juice-card .juice-add input {
+  background-color: #F1C40F;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+  border: none;
+  font-weight: 600;
+}
+
+.corazon-rojo {
+  color: red;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 15px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.product-card img {
+  width: 30px;
+  padding-right: 0.5rem;
+}
+
+.product-card h3 {
+  font-size: 1rem;
+}
+
+.product-card .juice-price span {
+  color: #F1C40F;
+}
+
+.product-card i:hover {
+  color: red;
+}
+
+.sesion {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.sesion section {
+  width: 40%;
+}
+
+.sesion article {
+  margin: 2rem 0;
+  text-align: center;
+  max-width: 450px;
+}
+
+.sesion button {
+  border-radius: 20px;
+  border: 1px solid #F1C40F;
+  background-color: #F1C40F;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  /* OJO */
+}
+
+.sesion button .escondido {
+  background-color: transparent;
+  border-color: #FFFFFF;
+}
+
+.sesion form {
+  background-color: #FFFFFF;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 15px;
+  height: 400px;
+}
+
+.sesion form input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.sesion form .social {
+  border: 1px solid #cacaca;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 5px;
+  height: 40px;
+  width: 40px;
+}
+
+.sesion form .social i {
+  font-size: 20px;
+  color: #cacaca;
+}
+
+.sesion form .social i:hover {
+  color: #F1C40F;
+}
+
+.sesion form .forgot {
+  color: black;
+  display: block;
+  margin: 0.7rem 0;
+}
+
+.sesion h2 {
+  font-weight: bold;
+  margin: 0;
+}
+/*# sourceMappingURL=style.css.map */

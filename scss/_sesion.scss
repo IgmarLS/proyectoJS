@@ -1,0 +1,72 @@
+.sesion {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    section {
+        width: 40%;
+    }
+    article {
+        margin: 2rem 0;
+        text-align: center;
+        max-width: 450px;
+    }
+    button {
+        border-radius: 20px;
+        border: 1px solid #F1C40F;
+        background-color: #F1C40F;
+        color: #FFFFFF;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 12px 45px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: transform 80ms ease-in; /* OJO */
+        .escondido {
+            background-color: transparent;
+	        border-color: #FFFFFF;
+        }
+    }
+    form {
+        background-color: #FFFFFF;
+        padding: 2rem;
+        text-align: center;
+        border-radius: 15px;
+        height: 400px;
+        input {
+            background-color: #eee;
+            border: none;
+            padding: 12px 15px;
+            margin: 8px 0;
+            width: 100%;
+            border-radius: 10px;
+        }
+        .social {
+            border: 1px solid #cacaca;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem 5px;
+            height: 40px;
+            width: 40px;
+            i{
+                font-size: 20px;
+                color: $color-text;
+                &:hover {
+                    color: #F1C40F;
+                }
+            }
+        }
+        .forgot {
+            color: black;
+            display: block;
+            margin: 0.7rem 0;
+        }
+    }
+    h2 {
+        font-weight: bold;
+        margin: 0;
+    }
+
+}
+

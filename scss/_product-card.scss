@@ -1,0 +1,27 @@
+.product-card{
+    background-color: white;
+    border-radius: 15px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0;
+    img {
+        width: 30px;
+        padding-right: 0.5rem;
+    }
+    h3 {
+        font-size: 1rem;
+    }
+    .juice-price {
+
+        span {
+            color: #F1C40F;
+        }
+    }
+    i {
+        &:hover{
+            color: red;
+        }
+    }
+}
