@@ -5,6 +5,7 @@ let seccionProductos = document.getElementById("products");
 let boton_logIn = document.getElementById("boton-logIn");
 let boton_signUp = document.getElementById("boton-signUp");
 const contenedorJugos = document.getElementById("contenedorJugos");
+let secSesion =  document.getElementById("sesion");
 
 class Usuario { //CONSTRUCTOR
     constructor(nombre, nuevo_email, nuevo_pass){
@@ -36,7 +37,7 @@ contenedorJugos.innerHTML=`
                     <img src="..." alt="...">
                     <h3>Nombre del jugo</h3>
                     <div class="juice-price">
-                        <span>€ precio</span>
+                        <p>€<span> precio</span></p>
                     </div>
                     <div class="juice-add">
                         <select name="cantidad" id="" class="btn-qty">
@@ -51,7 +52,7 @@ contenedorJugos.innerHTML=`
                             <option value="9">9</option>
                             <option value="810">10</option>
                         </select>
-                        <input type="button" name="" id="" value="Añadir">
+                        <button id="agregar" class="btn-agregar">Añadir</button>
                     </div>
                 </div>
 `
@@ -68,7 +69,7 @@ function mostrarJugos(arrayJugos){
                     <img src="${element.img}" alt="${element.nombre}">
                     <h3>${element.nombre}</h3>
                     <div class="juice-price">
-                        <span>€ ${element.precio}</span>
+                        <p>€<span>${element.precio}</span></p>
                     </div>
                     <div class="juice-add">
                         <select name="cantidad" id="" class="btn-qty">
@@ -83,10 +84,10 @@ function mostrarJugos(arrayJugos){
                             <option value="9">9</option>
                             <option value="810">10</option>
                         </select>
-                        <input type="button" name="" id="" value="Añadir">
+                        <button id="agregar" class="btn-agregar">Añadir</button>
                     </div>
                 </div>
-        `
+        `;
     });
 }
 
@@ -104,7 +105,7 @@ function signUp(){ //FUNCIÓN
     let nuevo_usuario = new Usuario(nombre, nuevo_email, nuevo_pass);
 
     usuarios.push(nuevo_usuario); //METODO PUSH
-
+    secSesion.remove();
     saludo()
 }
 
@@ -116,6 +117,7 @@ function logIn(){ //FUNCIÓN
 
     
     if(email == email_registrado && pass == pass_registrado){ //CONDICIONAL
+        secSesion.remove();
         saludo()
     }
     else{
@@ -124,3 +126,29 @@ function logIn(){ //FUNCIÓN
 }
 
 boton_logIn.addEventListener("click", logIn) //EVENTO
+
+
+//CARRITO
+let agregar = document.getElementById("agregar");
+
+agregar.addEventListener("click", function(){
+
+    let carrito = document.getElementById("carrito")
+    
+    console.log(carrito) //solo para prueba
+
+    /* let producto = document.createElement("div")
+    producto.classList.add('product-card')
+    
+    producto.innerHTML = `
+        <img src="../img/jugo-naranja-zanahoria.png" alt="Jugo de naranja y zanahoria">
+        <h3>Jugo de naranja y zanahoria</h3>
+        <div class="juice-price">
+            <span>€ 1.50</span>
+        </div>
+        <i class="fa-solid fa-trash-can"></i>
+    `;
+
+    carrito.append(producto); */
+
+})

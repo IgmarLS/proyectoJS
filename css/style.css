@@ -74,7 +74,7 @@ main {
   background-color: white;
   padding: 1rem;
   border-radius: 15px;
-  margin-bottom: 1rem;
+  margin: 1rem;
 }
 
 .titulo-error {
@@ -198,7 +198,7 @@ footer {
   padding: .2rem;
 }
 
-.juice-card .juice-add input {
+.juice-card .juice-add .btn-agregar {
   background-color: #F1C40F;
   padding: 0.5rem 1rem;
   border-radius: 25px;
