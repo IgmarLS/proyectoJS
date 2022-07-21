@@ -84,7 +84,7 @@ function mostrarJugos(arrayJugos){
                             <option value="9">9</option>
                             <option value="810">10</option>
                         </select>
-                        <button id="agregar" class="btn-agregar">Añadir</button>
+                        <button id="${element.id}" class="btn-agregar">Añadir</button>
                     </div>
                 </div>
         `;
@@ -129,28 +129,42 @@ boton_logIn.addEventListener("click", logIn) //EVENTO
 
 
 //CARRITO
-let agregar = document.getElementById("agregar");
-console.log(agregar)
+const carrito = []; //ARREGLO VACÍO
 
-agregar.addEventListener("click", function(){
-    console.log("Hola")
+document.addEventListener("click", function(e){
 
-    let carrito = document.getElementById("carrito")
+    if(e.target.matches(".btn-agregar")){ //BOTÓN PARA AGREGAR AL CARRITO
+        const productoSeleccionado = productos.find(el => el.id === parseInt(e.target.id)) //METODO FIND
+        //console.log(productoSeleccionado) //solo para prueba
+        carrito.push(productoSeleccionado) //METODO PUSH
     
-    console.log(carrito) //solo para prueba
+        const $carrito = document.getElementById('carrito') //$carrito: nodo del HTML
+        $carrito.innerHTML += `
+            <div class="product-card">
+                <img src="${productoSeleccionado.img}" alt="Jugo de naranja y zanahoria">
+                <h3>${productoSeleccionado.nombre}</h3>
+                <div class="juice-price">
+                    <span>${productoSeleccionado.precio}</span>
+                </div>
+                <i id="${productoSeleccionado.id}" class="fa-solid fa-trash-can"></i>
+            </div>
+        `
 
-    /* let producto = document.createElement("div")
-    producto.classList.add('product-card')
-    
-    producto.innerHTML = `
-        <img src="../img/jugo-naranja-zanahoria.png" alt="Jugo de naranja y zanahoria">
-        <h3>Jugo de naranja y zanahoria</h3>
-        <div class="juice-price">
-            <span>€ 1.50</span>
-        </div>
-        <i class="fa-solid fa-trash-can"></i>
-    `;
+        /* FALTA TOTALIZAR */
 
-    carrito.append(producto); */
+    }
 
+    if(e.target.matches(".social i")){ //BOTÓN PARA REGISTRO E INICIO DE SESIÓN CON RRSS
+        secSesion.remove();
+        saludo()
+    }
+
+    if(e.target.matches('.fa-heart')){ //BOTÓN PARA LIKE
+        if(e.target.classList.contains('corazon-rojo')){
+            e.target.classList.remove('corazon-rojo')
+        }
+        else{
+            e.target.classList.add('corazon-rojo')
+        }
+    }
 })
