@@ -22,10 +22,10 @@ const usuarios = [ //ARREGLO DE OBJETOS -- de LET A CONST para que no se pueda m
 const productos = [ // ARREGLO DE OBJETOS LITERAL
     {id: 1, nombre: "Jugo de naranja", precio: 1, img: "./img/jugo-naranja.png"},
     {id: 2, nombre: "Jugo de naranja con zanahoria", precio: 1.5, img: "./img/jugo-naranja-zanahoria.png"},
-    {id: 3, nombre: "Jugo de mango", precio: 1.7, img: "./img/jugo-de-mango.png"},
-    {id: 4, nombre: "Jugo de manzana", precio: 1, img: "./img/jugo-de-manzana.png"},
-    {id: 5, nombre: "Jugo de manzana con espinaca", precio: 1.2, img: "./img/jugo-de-manzana-y-espinaca.png"},
-    {id: 6, nombre: "Jugo rojo", precio: 1.3, img: "./img/jugo-rojo.png"},
+    {id: 3, nombre: "Jugo de mango", precio: 1.7, img: "./img/Jugo-de-mango.png"},
+    {id: 4, nombre: "Jugo de manzana", precio: 1, img: "./img/Jugo-de-manzana.png"},
+    {id: 5, nombre: "Jugo de manzana con espinaca", precio: 1.2, img: "./img/Jugo-de-manzana-y-espinaca.png"},
+    {id: 6, nombre: "Jugo rojo", precio: 1.3, img: "./img/Jugo-rojo.png"},
 ]
 
 //MODIFICACION CON INNER HTML
@@ -130,8 +130,10 @@ boton_logIn.addEventListener("click", logIn) //EVENTO
 
 //CARRITO
 let agregar = document.getElementById("agregar");
+console.log(agregar)
 
 agregar.addEventListener("click", function(){
+    console.log("Hola")
 
     let carrito = document.getElementById("carrito")
     
