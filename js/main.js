@@ -40,18 +40,6 @@ contenedorJugos.innerHTML=`
                         <p>€<span> precio</span></p>
                     </div>
                     <div class="juice-add">
-                        <select name="cantidad" id="" class="btn-qty">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="810">10</option>
-                        </select>
                         <button id="agregar" class="btn-agregar">Añadir</button>
                     </div>
                 </div>
@@ -72,18 +60,6 @@ function mostrarJugos(arrayJugos){
                         <p>€<span>${element.precio}</span></p>
                     </div>
                     <div class="juice-add">
-                        <select name="cantidad" id="" class="btn-qty">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="810">10</option>
-                        </select>
                         <button id="${element.id}" class="btn-agregar">Añadir</button>
                     </div>
                 </div>
@@ -102,11 +78,24 @@ function signUp(){ //FUNCIÓN
     let nuevo_email = document.getElementById("nuevo_email").value; 
     let nuevo_pass = document.getElementById("nueva_pass").value; 
 
-    let nuevo_usuario = new Usuario(nombre, nuevo_email, nuevo_pass);
+    //Expresión regular
+    expReg = /^\s+$/;
 
-    usuarios.push(nuevo_usuario); //METODO PUSH
-    secSesion.remove();
-    saludo()
+    if(nombre == null || nombre.length == 0 || expReg.test(nombre)){
+        document.getElementById("nombre_usuario").style.border = 'solid red 1px';
+        //mostrar error
+
+        //agregar la clase de error
+    }
+    else{
+        //agreagr la clase de correcto
+        let nuevo_usuario = new Usuario(nombre, nuevo_email, nuevo_pass);
+        usuarios.push(nuevo_usuario); //METODO PUSH
+
+        secSesion.remove();
+        saludo()
+    }
+    
 }
 
 boton_signUp.addEventListener("click", signUp) //EVENTO

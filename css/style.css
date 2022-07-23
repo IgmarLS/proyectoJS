@@ -198,15 +198,10 @@ footer {
   margin-top: 1rem;
 }
 
-.juice-card .juice-add .btn-qty {
-  padding: .2rem;
-}
-
 .juice-card .juice-add .btn-agregar {
   background-color: #F1C40F;
   padding: 0.5rem 1rem;
   border-radius: 25px;
-  margin-left: 1rem;
   border: none;
   font-weight: 600;
 }
@@ -288,6 +283,10 @@ footer {
   margin: 8px 0;
   width: 100%;
   border-radius: 10px;
+}
+
+.sesion form .error {
+  border: solid red 2px;
 }
 
 .sesion form .social {
