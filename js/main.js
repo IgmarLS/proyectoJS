@@ -161,9 +161,6 @@ document.addEventListener("click", function(e){
             </div>
         `;
 
-        console.log(carrito)
-        console.log(carritoLocalStorage)
-
         let botones_eliminar = document.querySelectorAll('.eliminar_jugo');
         for(let boton of botones_eliminar){
             boton.addEventListener('click', eliminar_jugo)
