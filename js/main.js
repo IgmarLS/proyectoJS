@@ -7,6 +7,9 @@ let boton_signUp = document.getElementById("boton-signUp");
 const contenedorJugos = document.getElementById("contenedorJugos");
 let secSesion =  document.getElementById("sesion");
 
+let precioSubTotal = document.querySelector('.precioSubtotal');
+let precioTotalizado = document.querySelector('.precioTotalizado');
+
 class Usuario { //CONSTRUCTOR
     constructor(nombre, nuevo_email, nuevo_pass){
         this.nombre = nombre
@@ -67,7 +70,7 @@ function mostrarJugos(arrayJugos){
     });
 }
 
-function saludo(){ //FUNCIÓN
+function compraJugos(){ //FUNCIÓN
     bienvenida.innerHTML="<h2 class='titulo-bienvenida'>¡Bienvenido/a! Ahora puedes comprar los jugos que quieras.</h2>"; //MODIFICANDO EL NODO CON INNER HTML
     mostrarJugos(productos)
     seccionProductos.className = "showProducts"; //CLASS NAME
@@ -93,7 +96,7 @@ function signUp(){ //FUNCIÓN
         usuarios.push(nuevo_usuario); //METODO PUSH
 
         secSesion.remove();
-        saludo()
+        compraJugos()
     }
     
 }
@@ -107,7 +110,7 @@ function logIn(){ //FUNCIÓN
     
     if(email == email_registrado && pass == pass_registrado){ //CONDICIONAL
         secSesion.remove();
-        saludo()
+        compraJugos()
     }
     else{
         bienvenida.innerHTML="<h2 class='titulo-error'>¡Datos incorrectos! No puede ingresar</h2>"; //MODIFICANDO EL NODO CON INNER HTML
@@ -120,12 +123,22 @@ boton_logIn.addEventListener("click", logIn) //EVENTO
 //CARRITO
 const carrito = []; //ARREGLO VACÍO
 
+function calcularSubtotal(sub, jugo){
+    sub = sub + jugo.precio;
+    return sub
+} 
+
+const carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'))
+localStorage.setItem('carrito', '[]')
+
 document.addEventListener("click", function(e){
 
     if(e.target.matches(".btn-agregar")){ //BOTÓN PARA AGREGAR AL CARRITO
         const productoSeleccionado = productos.find(el => el.id === parseInt(e.target.id)) //METODO FIND
         //console.log(productoSeleccionado) //solo para prueba
         carrito.push(productoSeleccionado) //METODO PUSH
+        carritoLocalStorage.push(productoSeleccionado)
+        localStorage.setItem('carrito', JSON.stringify(carritoLocalStorage))
     
         const $carrito = document.getElementById('carrito') //$carrito: nodo del HTML
         $carrito.innerHTML += `
@@ -137,15 +150,22 @@ document.addEventListener("click", function(e){
                 </div>
                 <i id="${productoSeleccionado.id}" class="fa-solid fa-trash-can"></i>
             </div>
-        `
+        `;
 
-        /* FALTA TOTALIZAR */
+        /* SUBTOTAL */
+            let subtotal_venta = carrito.reduce(calcularSubtotal, 0)
+            //console.log(subtotal_venta) //solo para prueba
+            precioSubTotal.innerText = subtotal_venta
 
+        /* TOTAL */
+        let total = subtotal_venta + 2;
+        precioTotalizado.innerText = total
+        
     }
 
     if(e.target.matches(".social i")){ //BOTÓN PARA REGISTRO E INICIO DE SESIÓN CON RRSS
         secSesion.remove();
-        saludo()
+        compraJugos()
     }
 
     if(e.target.matches('.fa-heart')){ //BOTÓN PARA LIKE
