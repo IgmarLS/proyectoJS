@@ -7,7 +7,7 @@ let boton_signUp = document.getElementById("boton-signUp");
 const contenedorJugos = document.getElementById("contenedorJugos");
 let secSesion =  document.getElementById("sesion");
 
-let precioSubTotal = document.querySelector('.precioSubtotal');
+let precioSubTotal = document.querySelector('.precioSubtotal'); //CAPTURA DE NODO POR CLASE
 let precioTotalizado = document.querySelector('.precioTotalizado');
 
 class Usuario { //CONSTRUCTOR
@@ -86,19 +86,20 @@ function signUp(){ //FUNCIÓN
 
     if(nombre == null || nombre.length == 0 || expReg.test(nombre)){
         document.getElementById("nombre_usuario").style.border = 'solid red 1px';
-        //mostrar error
-
-        //agregar la clase de error
     }
     else{
-        //agreagr la clase de correcto
         let nuevo_usuario = new Usuario(nombre, nuevo_email, nuevo_pass);
         usuarios.push(nuevo_usuario); //METODO PUSH
+
+        let arreglo_JSON = JSON.stringify(usuarios);
+        localStorage.setItem("usuarios", arreglo_JSON);    
+        
+        let recuperando_usuarios = localStorage.getItem("usuarios");
+        console.log(JSON.parse(recuperando_usuarios))
 
         secSesion.remove();
         compraJugos()
     }
-    
 }
 
 boton_signUp.addEventListener("click", signUp) //EVENTO
@@ -123,13 +124,21 @@ boton_logIn.addEventListener("click", logIn) //EVENTO
 //CARRITO
 const carrito = []; //ARREGLO VACÍO
 
+const carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'))
+localStorage.setItem('carrito', '[]')
+
+function eliminar_jugo(e){
+    //console.log(e.target); //para prueba
+    let padre = e.target.parentNode;
+    padre.remove()
+
+    /* FALTA ELIMINAR DEL ARRAY */
+}
+
 function calcularSubtotal(sub, jugo){
     sub = sub + jugo.precio;
     return sub
-} 
-
-const carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'))
-localStorage.setItem('carrito', '[]')
+}
 
 document.addEventListener("click", function(e){
 
@@ -148,14 +157,22 @@ document.addEventListener("click", function(e){
                 <div class="juice-price">
                     <span>${productoSeleccionado.precio}</span>
                 </div>
-                <i id="${productoSeleccionado.id}" class="fa-solid fa-trash-can"></i>
+                <i id="${productoSeleccionado.id}" class="fa-solid fa-trash-can eliminar_jugo"></i>
             </div>
         `;
 
+        console.log(carrito)
+        console.log(carritoLocalStorage)
+
+        let botones_eliminar = document.querySelectorAll('.eliminar_jugo');
+        for(let boton of botones_eliminar){
+            boton.addEventListener('click', eliminar_jugo)
+        }
+
         /* SUBTOTAL */
-            let subtotal_venta = carrito.reduce(calcularSubtotal, 0)
-            //console.log(subtotal_venta) //solo para prueba
-            precioSubTotal.innerText = subtotal_venta
+        let subtotal_venta = carrito.reduce(calcularSubtotal, 0)
+        //console.log(subtotal_venta) //solo para prueba
+        precioSubTotal.innerText = subtotal_venta
 
         /* TOTAL */
         let total = subtotal_venta + 2;
