@@ -127,18 +127,42 @@ const carrito = []; //ARREGLO VACÍO
 const carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'))
 localStorage.setItem('carrito', '[]')
 
+function calcularSubtotal(sub, jugo){
+    sub = sub + jugo.precio;
+    return sub
+}
+
 function eliminar_jugo(e){
     //console.log(e.target); //para prueba
     let padre = e.target.parentNode;
     padre.remove()
 
+    /* console.log(carrito)
+    console.log(carritoLocalStorage)
+    console.log(e.target) */
+    
     /* FALTA ELIMINAR DEL ARRAY */
+    let jugo_a_eliminar = carrito.findIndex(element => element.id === parseInt(e.target.id));
+    carrito.splice(jugo_a_eliminar, 1);
+
+    let jugo_a_eliminar_precio = carritoLocalStorage.find(element => element.id === parseInt(e.target.id));
+
+    let jugo_a_eliminar_storage = carritoLocalStorage.findIndex(element => element.id === parseInt(e.target.id));
+    carritoLocalStorage.splice(jugo_a_eliminar_storage, 1);
+    localStorage.setItem('carrito', JSON.stringify(carritoLocalStorage))
+    
+    let resta_subtotal = precioSubTotal.innerText - jugo_a_eliminar_precio.precio;
+    precioSubTotal.innerText = resta_subtotal
+    if (resta_subtotal == 0){
+        precioTotalizado.innerText = "-"
+    }
+    else{
+        let resta_total = precioTotalizado.innerText - jugo_a_eliminar_precio.precio;
+        precioTotalizado.innerText = resta_total
+    }
 }
 
-function calcularSubtotal(sub, jugo){
-    sub = sub + jugo.precio;
-    return sub
-}
+
 
 document.addEventListener("click", function(e){
 
@@ -152,7 +176,7 @@ document.addEventListener("click", function(e){
         const $carrito = document.getElementById('carrito') //$carrito: nodo del HTML
         $carrito.innerHTML += `
             <div class="product-card">
-                <img src="${productoSeleccionado.img}" alt="Jugo de naranja y zanahoria">
+                <img src="${productoSeleccionado.img}" alt="${productoSeleccionado.nombre}">
                 <h3>${productoSeleccionado.nombre}</h3>
                 <div class="juice-price">
                     <span>${productoSeleccionado.precio}</span>
@@ -160,11 +184,6 @@ document.addEventListener("click", function(e){
                 <i id="${productoSeleccionado.id}" class="fa-solid fa-trash-can eliminar_jugo"></i>
             </div>
         `;
-
-        let botones_eliminar = document.querySelectorAll('.eliminar_jugo');
-        for(let boton of botones_eliminar){
-            boton.addEventListener('click', eliminar_jugo)
-        }
 
         /* SUBTOTAL */
         let subtotal_venta = carrito.reduce(calcularSubtotal, 0)
@@ -174,7 +193,11 @@ document.addEventListener("click", function(e){
         /* TOTAL */
         let total = subtotal_venta + 2;
         precioTotalizado.innerText = total
-        
+
+        let botones_eliminar = document.querySelectorAll('.eliminar_jugo');
+        for(let boton of botones_eliminar){
+            boton.addEventListener('click', eliminar_jugo)
+        }
     }
 
     if(e.target.matches(".social i")){ //BOTÓN PARA REGISTRO E INICIO DE SESIÓN CON RRSS
