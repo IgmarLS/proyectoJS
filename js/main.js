@@ -1,5 +1,3 @@
-let email_registrado = "marco@naa.com"
-let pass_registrado = "1234"
 let bienvenida = document.getElementById("bienvenida"); //CAPTURA DE NODO POR ID
 let seccionProductos = document.getElementById("products");
 let boton_logIn = document.getElementById("boton-logIn");
@@ -11,16 +9,16 @@ let precioSubTotal = document.querySelector('.precioSubtotal'); //CAPTURA DE NOD
 let precioTotalizado = document.querySelector('.precioTotalizado');
 
 class Usuario { //CONSTRUCTOR
-    constructor(nombre, nuevo_email, nuevo_pass){
+    constructor(nombre, email, pass){
         this.nombre = nombre
-        this.nuevo_email = nuevo_email
-        this.nuevo_pass = nuevo_pass
+        this.email = email
+        this.pass = pass
     }
 }
 
-const usuarios = [ //ARREGLO DE OBJETOS -- de LET A CONST para que no se pueda modificar su estructura 
-    new Usuario("Marco", "marco@naa.com", "1234"),
-]
+if(localStorage.getItem('usuarios') === null){
+    localStorage.setItem("usuarios", '[]')
+}
 
 const productos = [ // ARREGLO DE OBJETOS LITERAL
     {id: 1, nombre: "Jugo de naranja", precio: 1, img: "./img/jugo-naranja.png"},
@@ -89,13 +87,11 @@ function signUp(){ //FUNCIÓN
     }
     else{
         let nuevo_usuario = new Usuario(nombre, nuevo_email, nuevo_pass);
-        usuarios.push(nuevo_usuario); //METODO PUSH
-
-        let arreglo_JSON = JSON.stringify(usuarios);
-        localStorage.setItem("usuarios", arreglo_JSON);    
         
-        let recuperando_usuarios = localStorage.getItem("usuarios");
-        console.log(JSON.parse(recuperando_usuarios))
+        const usuariosStorageString = localStorage.getItem("usuarios")
+        const usuariosStorageArray = JSON.parse(usuariosStorageString)
+        usuariosStorageArray.push(nuevo_usuario)
+        localStorage.setItem('usuarios', JSON.stringify(usuariosStorageArray))
 
         secSesion.remove();
         compraJugos()
@@ -107,9 +103,17 @@ boton_signUp.addEventListener("click", signUp) //EVENTO
 function logIn(){ //FUNCIÓN
     let email = document.getElementById("email_usuario").value; //CAPTURA DE NODO POR ID Y VALUE
     let pass = document.getElementById("pass_usuario").value; 
+    const $formLogIn = document.getElementById('logIn')
+    $formLogIn.addEventListener('submit', (e) => e.preventDefault())
 
-    
-    if(email == email_registrado && pass == pass_registrado){ //CONDICIONAL
+    const usuariosStorageString = localStorage.getItem("usuarios");
+
+    const usuariosStorageArray = JSON.parse(usuariosStorageString);
+
+    const usuarioDB = usuariosStorageArray.find( (el) => el.email === email && el.pass === pass)
+    console.log(usuarioDB) // {.....}
+
+    if(usuarioDB !== undefined){ //CONDICIONAL
         secSesion.remove();
         compraJugos()
     }
@@ -122,54 +126,14 @@ boton_logIn.addEventListener("click", logIn) //EVENTO
 
 
 //CARRITO
-const carrito = []; //ARREGLO VACÍO
-
-const carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'))
 localStorage.setItem('carrito', '[]')
-
-function calcularSubtotal(sub, jugo){
-    sub = sub + jugo.precio;
-    return sub
-}
-
-function eliminar_jugo(e){
-    //console.log(e.target); //para prueba
-    let padre = e.target.parentNode;
-    padre.remove()
-
-    /* console.log(carrito)
-    console.log(carritoLocalStorage)
-    console.log(e.target) */
-    
-    /* FALTA ELIMINAR DEL ARRAY */
-    let jugo_a_eliminar = carrito.findIndex(element => element.id === parseInt(e.target.id));
-    carrito.splice(jugo_a_eliminar, 1);
-
-    let jugo_a_eliminar_precio = carritoLocalStorage.find(element => element.id === parseInt(e.target.id));
-
-    let jugo_a_eliminar_storage = carritoLocalStorage.findIndex(element => element.id === parseInt(e.target.id));
-    carritoLocalStorage.splice(jugo_a_eliminar_storage, 1);
-    localStorage.setItem('carrito', JSON.stringify(carritoLocalStorage))
-    
-    let resta_subtotal = precioSubTotal.innerText - jugo_a_eliminar_precio.precio;
-    precioSubTotal.innerText = resta_subtotal
-    if (resta_subtotal == 0){
-        precioTotalizado.innerText = "-"
-    }
-    else{
-        let resta_total = precioTotalizado.innerText - jugo_a_eliminar_precio.precio;
-        precioTotalizado.innerText = resta_total
-    }
-}
-
-
 
 document.addEventListener("click", function(e){
 
     if(e.target.matches(".btn-agregar")){ //BOTÓN PARA AGREGAR AL CARRITO
         const productoSeleccionado = productos.find(el => el.id === parseInt(e.target.id)) //METODO FIND
         //console.log(productoSeleccionado) //solo para prueba
-        carrito.push(productoSeleccionado) //METODO PUSH
+        const carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'))
         carritoLocalStorage.push(productoSeleccionado)
         localStorage.setItem('carrito', JSON.stringify(carritoLocalStorage))
     
@@ -186,17 +150,40 @@ document.addEventListener("click", function(e){
         `;
 
         /* SUBTOTAL */
-        let subtotal_venta = carrito.reduce(calcularSubtotal, 0)
+        let subtotal_venta = carritoLocalStorage.reduce( (sub, jugo) => sub + jugo.precio, 0)
         //console.log(subtotal_venta) //solo para prueba
-        precioSubTotal.innerText = subtotal_venta
+        precioSubTotal.innerText = subtotal_venta.toFixed(1)
 
         /* TOTAL */
-        let total = subtotal_venta + 2;
+        const COSTO_ENVIO = 2;
+        let total = subtotal_venta + COSTO_ENVIO;
         precioTotalizado.innerText = total
+    }
 
-        let botones_eliminar = document.querySelectorAll('.eliminar_jugo');
-        for(let boton of botones_eliminar){
-            boton.addEventListener('click', eliminar_jugo)
+    if(e.target.matches(".eliminar_jugo")){
+        console.log('Hice clic en el tachito')
+        console.log(e.target)
+        let padre = e.target.parentNode;
+        padre.remove()
+
+        /* FALTA ELIMINAR DEL ARRAY */
+        const carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'))
+            
+        let jugo_a_eliminar_storage = carritoLocalStorage.findIndex(element => element.id === parseInt(e.target.id));
+        carritoLocalStorage.splice(jugo_a_eliminar_storage, 1);
+        localStorage.setItem('carrito', JSON.stringify(carritoLocalStorage))
+
+        /* RESTAR */
+        let jugo_a_eliminar_precio = carritoLocalStorage.find(element => element.id === parseInt(e.target.id));
+        let resta_subtotal = parseFloat(precioSubTotal.innerText) - jugo_a_eliminar_precio.precio; //.toFixed(2)
+        precioSubTotal.innerText = resta_subtotal.toFixed(1)
+        if (resta_subtotal == 0){
+            precioSubTotal.innerText = 0
+            precioTotalizado.innerText = "-"
+        }
+        else{
+            let resta_total = parseFloat(precioTotalizado.innerText) - jugo_a_eliminar_precio.precio;
+            precioTotalizado.innerText = resta_total.toFixed(1)
         }
     }
 
