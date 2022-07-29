@@ -1,16 +1,16 @@
 let bienvenida = document.getElementById("bienvenida"); //CAPTURA DE NODO POR ID
-let seccionProductos = document.getElementById("products");
-let boton_logIn = document.getElementById("boton-logIn");
-let boton_signUp = document.getElementById("boton-signUp");
+let seccion_jugos = document.getElementById("products");
+let boton_inicioSesion = document.getElementById("boton-logIn");
+let boton_registro = document.getElementById("boton-signUp");
 const contenedorJugos = document.getElementById("contenedorJugos");
-let secSesion =  document.getElementById("sesion");
-let precioEnvio = document.getElementById("precioEnvio");
+let seccion_sesion =  document.getElementById("sesion");
+let precio_envio = document.getElementById("precioEnvio");
 
-let precioSubTotal = document.querySelector('.precioSubtotal'); //CAPTURA DE NODO POR CLASE
-let precioTotalizado = document.querySelector('.precioTotalizado');
+let precio_subtotal = document.querySelector('.precioSubtotal'); //CAPTURA DE NODO POR CLASE
+let precio_totalizado = document.querySelector('.precioTotalizado');
 
 const COSTO_ENVIO = 3;
-precioEnvio.innerText = COSTO_ENVIO
+precio_envio.innerText = COSTO_ENVIO
 
 class Usuario { //CONSTRUCTOR
     constructor(nombre, email, pass){
@@ -75,10 +75,10 @@ function mostrarJugos(arrayJugos){
 function compraJugos(){ //FUNCIÓN
     bienvenida.innerHTML="<h2 class='titulo-bienvenida'>¡Bienvenido/a! Ahora puedes comprar los jugos que quieras.</h2>"; //MODIFICANDO EL NODO CON INNER HTML
     mostrarJugos(productos)
-    seccionProductos.className = "showProducts"; //CLASS NAME
+    seccion_jugos.className = "showProducts"; //CLASS NAME
 }
 
-function signUp(){ //FUNCIÓN
+function registro(){ //FUNCIÓN
     let nombre = document.getElementById("nombre_usuario").value; //CAPTURA DE NODO POR ID Y VALUE
     let nuevo_email = document.getElementById("nuevo_email").value; 
     let nuevo_pass = document.getElementById("nueva_pass").value; 
@@ -97,14 +97,14 @@ function signUp(){ //FUNCIÓN
         usuariosStorageArray.push(nuevo_usuario)
         localStorage.setItem('usuarios', JSON.stringify(usuariosStorageArray))
 
-        secSesion.remove();
+        seccion_sesion.remove();
         compraJugos()
     }
 }
 
-boton_signUp.addEventListener("click", signUp) //EVENTO
+boton_registro.addEventListener("click", registro) //EVENTO
 
-function logIn(){ //FUNCIÓN
+function inicioSesion(){ //FUNCIÓN
     let email = document.getElementById("email_usuario").value; //CAPTURA DE NODO POR ID Y VALUE
     let pass = document.getElementById("pass_usuario").value; 
     const $formLogIn = document.getElementById('logIn')
@@ -118,7 +118,7 @@ function logIn(){ //FUNCIÓN
     console.log(usuarioDB) // {.....}
 
     if(usuarioDB !== undefined){ //CONDICIONAL
-        secSesion.remove();
+        seccion_sesion.remove();
         compraJugos()
     }
     else{
@@ -126,7 +126,7 @@ function logIn(){ //FUNCIÓN
     }
 }
 
-boton_logIn.addEventListener("click", logIn) //EVENTO
+boton_inicioSesion.addEventListener("click", inicioSesion) //EVENTO
 
 
 //CARRITO
@@ -156,42 +156,42 @@ document.addEventListener("click", function(e){
         /* SUBTOTAL */
         let subtotal_venta = carritoLocalStorage.reduce( (sub, jugo) => sub + jugo.precio, 0)
         //console.log(subtotal_venta) //solo para prueba
-        precioSubTotal.innerText = subtotal_venta.toFixed(1)
+        precio_subtotal.innerText = subtotal_venta.toFixed(1)
 
         /* TOTAL */
         let total = subtotal_venta + COSTO_ENVIO;
-        precioTotalizado.innerText = total
+        precio_totalizado.innerText = total
     }
 
     if(e.target.matches(".eliminar_jugo")){
-        console.log('Hice clic en el tachito')
-        console.log(e.target)
+        //console.log('Hice clic en el tachito')
+        //console.log(e.target)
         let padre = e.target.parentNode;
         padre.remove()
 
         /* FALTA ELIMINAR DEL ARRAY */
         const carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'))
+        let jugo_a_eliminar_precio = carritoLocalStorage.find(element => element.id === parseInt(e.target.id));
             
         let jugo_a_eliminar_storage = carritoLocalStorage.findIndex(element => element.id === parseInt(e.target.id));
         carritoLocalStorage.splice(jugo_a_eliminar_storage, 1);
         localStorage.setItem('carrito', JSON.stringify(carritoLocalStorage))
 
         /* RESTAR */
-        let jugo_a_eliminar_precio = carritoLocalStorage.find(element => element.id === parseInt(e.target.id));
-        let resta_subtotal = parseFloat(precioSubTotal.innerText) - jugo_a_eliminar_precio.precio; //.toFixed(2)
-        precioSubTotal.innerText = resta_subtotal.toFixed(1)
+        let resta_subtotal = parseFloat(precio_subtotal.innerText) - jugo_a_eliminar_precio.precio; //.toFixed(2)
+        precio_subtotal.innerText = resta_subtotal.toFixed(1)
         if (resta_subtotal == 0){
-            precioSubTotal.innerText = 0
-            precioTotalizado.innerText = "-"
+            precio_subtotal.innerText = 0
+            precio_totalizado.innerText = "-"
         }
         else{
-            let resta_total = parseFloat(precioTotalizado.innerText) - jugo_a_eliminar_precio.precio;
-            precioTotalizado.innerText = resta_total.toFixed(1)
+            let resta_total = parseFloat(precio_totalizado.innerText) - jugo_a_eliminar_precio.precio;
+            precio_totalizado.innerText = resta_total.toFixed(1)
         }
     }
 
     if(e.target.matches(".social i")){ //BOTÓN PARA REGISTRO E INICIO DE SESIÓN CON RRSS
-        secSesion.remove();
+        seccion_sesion.remove();
         compraJugos()
     }
 
