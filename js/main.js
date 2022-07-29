@@ -4,9 +4,13 @@ let boton_logIn = document.getElementById("boton-logIn");
 let boton_signUp = document.getElementById("boton-signUp");
 const contenedorJugos = document.getElementById("contenedorJugos");
 let secSesion =  document.getElementById("sesion");
+let precioEnvio = document.getElementById("precioEnvio");
 
 let precioSubTotal = document.querySelector('.precioSubtotal'); //CAPTURA DE NODO POR CLASE
 let precioTotalizado = document.querySelector('.precioTotalizado');
+
+const COSTO_ENVIO = 3;
+precioEnvio.innerText = COSTO_ENVIO
 
 class Usuario { //CONSTRUCTOR
     constructor(nombre, email, pass){
@@ -155,7 +159,6 @@ document.addEventListener("click", function(e){
         precioSubTotal.innerText = subtotal_venta.toFixed(1)
 
         /* TOTAL */
-        const COSTO_ENVIO = 2;
         let total = subtotal_venta + COSTO_ENVIO;
         precioTotalizado.innerText = total
     }
