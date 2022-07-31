@@ -20,10 +20,6 @@ class Usuario { //CONSTRUCTOR
     }
 }
 
-if(localStorage.getItem('usuarios') === null){
-    localStorage.setItem("usuarios", '[]')
-}
-
 const productos = [ // ARREGLO DE OBJETOS LITERAL
     {id: 1, nombre: "Jugo de naranja", precio: 1, img: "./img/jugo-naranja.png"},
     {id: 2, nombre: "Jugo de naranja con zanahoria", precio: 1.5, img: "./img/jugo-naranja-zanahoria.png"},
@@ -32,6 +28,10 @@ const productos = [ // ARREGLO DE OBJETOS LITERAL
     {id: 5, nombre: "Jugo de manzana con espinaca", precio: 1.2, img: "./img/Jugo-de-manzana-y-espinaca.png"},
     {id: 6, nombre: "Jugo rojo", precio: 1.3, img: "./img/Jugo-rojo.png"},
 ]
+
+if(localStorage.getItem('usuarios') === null){
+    localStorage.setItem("usuarios", '[]')
+}
 
 //MODIFICACION CON INNER HTML
 contenedorJugos.innerHTML=`
@@ -115,7 +115,7 @@ function inicioSesion(){ //FUNCIÓN
     const usuariosStorageArray = JSON.parse(usuariosStorageString);
 
     const usuarioDB = usuariosStorageArray.find( (el) => el.email === email && el.pass === pass)
-    console.log(usuarioDB) // {.....}
+    //console.log(usuarioDB)
 
     if(usuarioDB !== undefined){ //CONDICIONAL
         seccion_sesion.remove();
@@ -161,6 +161,19 @@ document.addEventListener("click", function(e){
         /* TOTAL */
         let total = subtotal_venta + COSTO_ENVIO;
         precio_totalizado.innerText = total
+
+        Toastify({ //Librería
+            text:"Jugo agregado al carrito",
+            duration: 2000, //tiempo en milisegundos
+            gravity: "bottom", //vertical: bottom y top
+            style: {
+                background: "#F1C40F",
+                fontSize: "15px",
+                fontFamily: "Roboto",
+                color: "#ffffff",
+                borderRadius: "10px"
+            },
+        }).showToast()
     }
 
     if(e.target.matches(".eliminar_jugo")){
@@ -188,6 +201,19 @@ document.addEventListener("click", function(e){
             let resta_total = parseFloat(precio_totalizado.innerText) - jugo_a_eliminar_precio.precio;
             precio_totalizado.innerText = resta_total.toFixed(1)
         }
+
+        Toastify({ //Librería
+            text:"Jugo eliminado del carrito",
+            duration: 2000, //tiempo en milisegundos
+            gravity: "bottom", //vertical: bottom y top
+            style: {
+                background: "#ee2400",
+                fontSize: "15px",
+                fontFamily: "Roboto",
+                color: "#ffffff",
+                borderRadius: "10px"
+            },
+        }).showToast()
     }
 
     if(e.target.matches(".social i")){ //BOTÓN PARA REGISTRO E INICIO DE SESIÓN CON RRSS
@@ -204,3 +230,6 @@ document.addEventListener("click", function(e){
         }
     }
 })
+
+
+//LIBRERÍAS
