@@ -50,7 +50,7 @@ contenedorJugos.innerHTML=`
                 </div>
 `
 
-function mostrarJugos(arrayJugos){
+function listadoJugos(arrayJugos){
     contenedorJugos.innerHTML=""
     arrayJugos.forEach(element => {
         //CONCATENACIÓN DE STRING CON LAS ETIQUETAS
@@ -72,9 +72,9 @@ function mostrarJugos(arrayJugos){
     });
 }
 
-function compraJugos(){ //FUNCIÓN
+function mostrarJugos(){ //FUNCIÓN
     bienvenida.innerHTML="<h2 class='titulo-bienvenida'>¡Bienvenido/a! Ahora puedes comprar los jugos que quieras.</h2>"; //MODIFICANDO EL NODO CON INNER HTML
-    mostrarJugos(productos)
+    listadoJugos(productos)
     seccion_jugos.className = "showProducts"; //CLASS NAME
 }
 
@@ -86,7 +86,7 @@ function registro(){ //FUNCIÓN
     //Expresión regular
     expReg = /^\s+$/;
 
-    if(nombre == null || nombre.length == 0 || expReg.test(nombre)){
+    if(nombre == null || nombre.length == 0 || expReg.test(nombre)){ //OR
         document.getElementById("nombre_usuario").style.border = 'solid red 1px';
     }
     else{
@@ -98,7 +98,7 @@ function registro(){ //FUNCIÓN
         localStorage.setItem('usuarios', JSON.stringify(usuariosStorageArray))
 
         seccion_sesion.remove();
-        compraJugos()
+        mostrarJugos()
     }
 }
 
@@ -114,12 +114,12 @@ function inicioSesion(){ //FUNCIÓN
 
     const usuariosStorageArray = JSON.parse(usuariosStorageString);
 
-    const usuarioDB = usuariosStorageArray.find( (el) => el.email === email && el.pass === pass)
+    const usuarioDB = usuariosStorageArray.find( (el) => el.email === email && el.pass === pass) //AND
     //console.log(usuarioDB)
 
     if(usuarioDB !== undefined){ //CONDICIONAL
         seccion_sesion.remove();
-        compraJugos()
+        mostrarJugos()
     }
     else{
         bienvenida.innerHTML="<h2 class='titulo-error'>¡Datos incorrectos! No puede ingresar</h2>"; //MODIFICANDO EL NODO CON INNER HTML
@@ -130,7 +130,7 @@ boton_inicioSesion.addEventListener("click", inicioSesion) //EVENTO
 
 
 //CARRITO
-localStorage.setItem('carrito', '[]')
+localStorage.setItem('carrito', '[]') //el carrito siempre se resetea
 
 document.addEventListener("click", function(e){
 
@@ -164,8 +164,8 @@ document.addEventListener("click", function(e){
 
         Toastify({ //Librería
             text:"Jugo agregado al carrito",
-            duration: 2000, //tiempo en milisegundos
-            gravity: "bottom", //vertical: bottom y top
+            duration: 2000,
+            gravity: "bottom",
             style: {
                 background: "#F1C40F",
                 fontSize: "15px",
@@ -204,8 +204,8 @@ document.addEventListener("click", function(e){
 
         Toastify({ //Librería
             text:"Jugo eliminado del carrito",
-            duration: 2000, //tiempo en milisegundos
-            gravity: "bottom", //vertical: bottom y top
+            duration: 2000,
+            gravity: "bottom",
             style: {
                 background: "#ee2400",
                 fontSize: "15px",
@@ -218,7 +218,7 @@ document.addEventListener("click", function(e){
 
     if(e.target.matches(".social i")){ //BOTÓN PARA REGISTRO E INICIO DE SESIÓN CON RRSS
         seccion_sesion.remove();
-        compraJugos()
+        mostrarJugos()
     }
 
     if(e.target.matches('.fa-heart')){ //BOTÓN PARA LIKE
@@ -230,6 +230,3 @@ document.addEventListener("click", function(e){
         }
     }
 })
-
-
-//LIBRERÍAS
