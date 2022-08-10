@@ -20,14 +20,33 @@ class Usuario { //CONSTRUCTOR
     }
 }
 
-const productos = [ // ARREGLO DE OBJETOS LITERAL
+/* const productos = [ // ARREGLO DE OBJETOS LITERAL
     {id: 1, nombre: "Jugo de naranja", precio: 1, img: "./img/jugo-naranja.png"},
     {id: 2, nombre: "Jugo de naranja con zanahoria", precio: 1.5, img: "./img/jugo-naranja-zanahoria.png"},
     {id: 3, nombre: "Jugo de mango", precio: 1.7, img: "./img/Jugo-de-mango.png"},
     {id: 4, nombre: "Jugo de manzana", precio: 1, img: "./img/Jugo-de-manzana.png"},
     {id: 5, nombre: "Jugo de manzana con espinaca", precio: 1.2, img: "./img/Jugo-de-manzana-y-espinaca.png"},
     {id: 6, nombre: "Jugo rojo", precio: 1.3, img: "./img/Jugo-rojo.png"},
-]
+] */
+
+const productos = [];
+const getProducts = async () =>
+{
+    try
+    {
+        const response = await fetch("jugos.json"); //FETCH
+        const data = await response.json();
+        console.log("data from json", data);
+        productos.push(...data);
+        console.log(productos)
+    }
+    catch(error)
+    {
+        console.log(error);
+    }
+}
+
+getProducts();
 
 if(localStorage.getItem('usuarios') === null){
     localStorage.setItem("usuarios", '[]')
