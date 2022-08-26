@@ -95,6 +95,31 @@ function listadoJugos(arrayJugos){
 function mostrarJugos(){ //FUNCIÓN
     bienvenida.innerHTML="<h2 class='titulo-bienvenida'>¡Bienvenido/a! Ahora puedes comprar los jugos que quieras.</h2>"; //MODIFICANDO EL NODO CON INNER HTML
     listadoJugos(productos)
+    // listar el carrito con lo que tengamos en localstorage
+    const carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'))
+    if(carritoLocalStorage.length > 0){
+        carritoLocalStorage.forEach( producto => {
+            $carrito.innerHTML += `
+                <div class="product-card">
+                    <img src="${producto.img}" alt="${producto.nombre}">
+                    <h3>${producto.nombre}</h3>
+                    <div class="juice-price">
+                        <span>${producto.precio}</span>
+                    </div>
+                    <i id="${producto.id}" class="fa-solid fa-trash-can eliminar_jugo"></i>
+                </div>
+            `
+        })
+    
+        let subtotal_venta = carritoLocalStorage.reduce( (sub, jugo) => sub + jugo.precio, 0)
+        //console.log(subtotal_venta) //solo para prueba
+        precio_subtotal.innerText = subtotal_venta.toFixed(1)
+    
+        /* TOTAL */
+        let total = subtotal_venta + COSTO_ENVIO;
+        precio_totalizado.innerText = total
+    }
+
     seccion_jugos.className = "showProducts"; //CLASS NAME
 }
 
@@ -157,9 +182,9 @@ function vaciarCarrito(){
 
 
 //CARRITO
-
-localStorage.setItem('carrito', '[]') //el carrito siempre se resetea
-
+if(!localStorage.getItem('carrito')){
+    localStorage.setItem('carrito', '[]') //el carrito siempre se resetea
+}
 
 document.addEventListener("click", function(e){
 
