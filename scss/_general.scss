@@ -109,7 +109,7 @@ main {
     margin-bottom: 2rem;
 }
 
-.product-total {
+.datos-carrito {
     box-shadow: $shadow;
     border-radius: 15px;
     padding: 1rem;
@@ -129,13 +129,13 @@ main {
     }
 }
 
-#btn-comprar {
+.btn-carrito {
     background-color: #F1C40F;
     padding: 0.5rem 1rem;
     border-radius: 25px;
     border: none;
     font-weight: 600;
-    margin-top: 1rem;
+    margin: 1rem 0;
 }
 
 footer {

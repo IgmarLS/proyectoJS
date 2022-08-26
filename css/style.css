@@ -109,35 +109,35 @@ main {
   margin-bottom: 2rem;
 }
 
-.product-total {
+.datos-carrito {
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   padding: 1rem;
   color: black;
 }
 
-.product-total .subtotal, .product-total .envio, .product-total .total {
+.datos-carrito .subtotal, .datos-carrito .envio, .datos-carrito .total {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0;
 }
 
-.product-total .total {
+.datos-carrito .total {
   border-top: 2px solid #000000;
 }
 
-.product-total .total span {
+.datos-carrito .total span {
   font-size: 24px;
   font-weight: 700;
 }
 
-#btn-comprar {
+.btn-carrito {
   background-color: #F1C40F;
   padding: 0.5rem 1rem;
   border-radius: 25px;
   border: none;
   font-weight: 600;
-  margin-top: 1rem;
+  margin: 1rem 0;
 }
 
 footer {
@@ -332,5 +332,29 @@ footer {
 .sesion h2 {
   font-weight: bold;
   margin: 0;
+}
+
+.datos-form {
+  margin-top: 1rem;
+}
+
+.datos-form .datos-campos {
+  display: flex;
+  flex-direction: column;
+}
+
+.datos-form div {
+  margin: 1rem 0;
+}
+
+.datos-form div .input-address, .datos-form div textarea {
+  border: 1px solid #c9c9c9;
+  border-radius: 5px;
+  display: block;
+  font-family: inherit;
+  font-size: 0.85rem;
+  margin-bottom: 0.15rem;
+  padding: 10px;
+  width: 100%;
 }
 /*# sourceMappingURL=style.css.map */

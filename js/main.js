@@ -5,6 +5,7 @@ let boton_registro = document.getElementById("boton-signUp");
 const contenedorJugos = document.getElementById("contenedorJugos");
 let seccion_sesion =  document.getElementById("sesion");
 let precio_envio = document.getElementById("precioEnvio");
+const $carrito = document.getElementById('carrito') //$carrito: nodo del HTML
 
 let precio_subtotal = document.querySelector('.precioSubtotal'); //CAPTURA DE NODO POR CLASE
 let precio_totalizado = document.querySelector('.precioTotalizado');
@@ -147,9 +148,18 @@ function inicioSesion(){ //FUNCIÓN
 
 boton_inicioSesion.addEventListener("click", inicioSesion) //EVENTO
 
+function vaciarCarrito(){
+    precio_subtotal.innerText = 0
+    precio_totalizado.innerText = 0
+    $carrito.innerHTML=''
+    localStorage.setItem('carrito', '[]')
+}
+
 
 //CARRITO
+
 localStorage.setItem('carrito', '[]') //el carrito siempre se resetea
+
 
 document.addEventListener("click", function(e){
 
@@ -160,7 +170,7 @@ document.addEventListener("click", function(e){
         carritoLocalStorage.push(productoSeleccionado)
         localStorage.setItem('carrito', JSON.stringify(carritoLocalStorage))
     
-        const $carrito = document.getElementById('carrito') //$carrito: nodo del HTML
+        
         $carrito.innerHTML += `
             <div class="product-card">
                 <img src="${productoSeleccionado.img}" alt="${productoSeleccionado.nombre}">
@@ -246,6 +256,69 @@ document.addEventListener("click", function(e){
         }
         else{
             e.target.classList.add('corazon-rojo')
+        }
+    }
+
+    if(e.target.matches('#btn-clear')){
+        Swal.fire({
+            title: '¿Estás seguro que quieres vaciar tu carrito?',
+            text: "No podrás deshacer esta acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                '¡Carrito vacío!',
+                'Elige jugos para llenar tu carrito',
+                'success'
+              )
+              /* ELIMINAR ITEMS DEL CARRITO */
+              vaciarCarrito()
+            }
+          })
+    }
+
+    if(e.target.matches('#btn-buy')){
+        /* validar cada uno de los campos */
+        const $calle_input = document.getElementById('street')
+        const $numero_input = document.getElementById('number')
+        const $adicional_input = document.getElementById('nota-adicional')
+        const $tipo_input = document.querySelector("[name='tipo']:checked")
+        let vacio = false
+
+        if(($calle_input.value.length === 0)){
+            vacio = true
+        }
+        if(($numero_input.value.length === 0)){
+            vacio = true
+        }
+        if(($tipo_input === null)){
+            vacio = true    
+        }
+        if(vacio === true){
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: '¡Completa los campos!',
+                text: "Tienes que ingresar el nombre de la calle y el número.",
+                showConfirmButton: true,
+            })
+        }
+        else{
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '¡Muchas gracias por tu compra!',
+                text: "Te enviaremos un mail con el link de pago.",
+                showConfirmButton: true,
+            })
+            $calle_input.value = ""
+            $numero_input.value = ""
+            $adicional_input.value = ""
+            vaciarCarrito()
         }
     }
 })

@@ -34,5 +34,11 @@
         "nombre": "Jugo rojo",
         "precio": 1.3,
         "img": "./img/Jugo-rojo.png"
+    },
+    {
+        "id": 7,
+        "nombre": "Jugo verde",
+        "precio": 1.1,
+        "img": "./img/Jugo-de-manzana.png"
     }
 ]
